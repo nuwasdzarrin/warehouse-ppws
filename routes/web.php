@@ -47,6 +47,11 @@ Route::get('down', function () {
     \Illuminate\Support\Facades\Artisan::call('down');
     dd("maintenance");
 });
+Route::get('php_info', function () {
+    phpinfo();
+    return "true";
+});
+
 
 Route::get('/', function () {
     return redirect(route('products.index'));
