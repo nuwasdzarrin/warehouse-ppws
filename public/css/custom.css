@@ -1,0 +1,16 @@
+.bottom-nav-custom {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    min-height: 0;
+    height: 45px;
+}
+.list-bottom-nav-custom {
+    display: flex;
+    justify-content: space-around;
+    font-size: 18px;
+}
+.bottom-active {
+    color: #c5c5c5;
+    font-size: 22px;
+}
