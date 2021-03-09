@@ -6,6 +6,7 @@ use App\Product;
 use Barryvdh\Snappy\Facades\SnappyPdf as PDF;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 
 /**
  * StockReportController
@@ -37,13 +38,21 @@ class StockReportController extends Controller
         })->filter()->paginate()->appends(request()->query());
 
         if (request()->exists('pdf')) {
-            $pdf = PDF::loadView('prints.stock_report', [ 'products' => $products ])
-                ->setPaper('a3')
-                ->setOption('margin-bottom', 10)
-                ->setOption('enable-javascript', true)
-                ->setOption('javascript-delay', 5000)
-                ->setOption('title', "Cetak Laporan Transaksi");
-            $pdf->inline("cetak-laporan-tarnsaksi.pdf");
+//            $pdf = PDF::loadView('prints.stock_report', [ 'products' => $products ])
+//                ->setPaper('a3')
+//                ->setOption('margin-bottom', 10)
+//                ->setOption('enable-javascript', true)
+//                ->setOption('javascript-delay', 5000)
+//                ->setOption('title', "Cetak Laporan Transaksi");
+//            $pdf->inline("cetak-laporan-tarnsaksi.pdf");
+
+            $view = view('prints.stock_report', [ 'products' => $products ])->render();
+//            return $view;
+            $pdf = App::make('dompdf.wrapper');
+            $pdf->loadHTML($view);
+            $pdf->setPaper('a4', 'potrait');
+
+            return $pdf->stream('cetak-laporan-stock.pdf');
         }
 
 //        script for debugging
