@@ -12,6 +12,7 @@
         "ext-json": "*",
         "atnic/laravel-generator": "dev-develop",
         "atnic/laravel-inspinia": "^0.4.2",
+        "barryvdh/laravel-dompdf": "^0.8.4",
         "davejamesmiller/laravel-breadcrumbs": "5.2.*",
         "fideloper/proxy": "^4.0",
         "laravel/framework": "5.7.*",
