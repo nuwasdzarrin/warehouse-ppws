@@ -3,10 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Product;
-use Barryvdh\Snappy\Facades\SnappyPdf as PDF;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\App;
+use mikehaertl\wkhtmlto\Pdf;
+//use Barryvdh\Snappy\Facades\SnappyPdf as PDF;
 
 /**
  * StockReportController
@@ -38,6 +37,12 @@ class StockReportController extends Controller
         })->filter()->paginate()->appends(request()->query());
 
         if (request()->exists('pdf')) {
+            $render = view('prints.stock_report', [ 'products' => $products ])->render();
+            $pdf = new Pdf;
+            $pdf->addPage($render);
+            $pdf->setOptions(['javascript-delay' => 5000]);
+            return $pdf->send('Laporan Stok '.\Carbon\Carbon::now()->format('d M Y').'.pdf');
+
 //            $pdf = PDF::loadView('prints.stock_report', [ 'products' => $products ])
 //                ->setPaper('a3')
 //                ->setOption('margin-bottom', 10)
@@ -45,14 +50,7 @@ class StockReportController extends Controller
 //                ->setOption('javascript-delay', 5000)
 //                ->setOption('title', "Cetak Laporan Transaksi");
 //            $pdf->inline("cetak-laporan-tarnsaksi.pdf");
-
-            $view = view('prints.stock_report', [ 'products' => $products ])->render();
-//            return $view;
-            $pdf = App::make('dompdf.wrapper');
-            $pdf->loadHTML($view);
-            $pdf->setPaper('a4', 'potrait');
-
-            return $pdf->stream('cetak-laporan-stock.pdf');
+//            return $pdf->stream('cetak-laporan-stock.pdf');
         }
 
 //        script for debugging

@@ -3,10 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Transaction;
-//use Barryvdh\Snappy\Facades\SnappyPdf as PDF;
 use mikehaertl\wkhtmlto\Pdf;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Http\Request;
+//use Barryvdh\Snappy\Facades\SnappyPdf as PDF;
 
 /**
  * TransactionReportController
@@ -43,7 +42,7 @@ class TransactionReportController extends Controller
             $pdf = new Pdf;
             $pdf->addPage($render);
             $pdf->setOptions(['javascript-delay' => 5000]);
-            return $pdf->send('laporan-transaksi.pdf');
+            return $pdf->send('Laporan Transaksi '.\Carbon\Carbon::now()->format('d M Y').'.pdf');
 
 //            return PDF::loadView('prints.transaction_report', [ 'transactions' => $transactions ])
 //                ->setPaper('a3')

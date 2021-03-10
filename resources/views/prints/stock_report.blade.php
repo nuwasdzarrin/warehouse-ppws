@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta content="text/html; charset=UTF-8" http-equiv="content-type">
-    uuggg
+    <script src="https://d3js.org/d3.v4.min.js"></script>
     {{--    <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>--}}
     <style type="text/css">
         @import url('https://themes.googleusercontent.com/fonts/css?kit=uTXSPZwEp3TWQFaTM2vlS3s421DlrhI9eSNlJenMRKM_aAifJoacbFX6HU9PyTi6');
@@ -20,7 +20,208 @@
         body {
             font-family: 'Open Sans', sans-serif;
             margin: 0;
-            padding: 50px;
+            padding: 10px 10px 0 10px;
+        }
+
+        .page {
+            position: relative;
+            height: 1927px;
+            margin: 0;
+            padding: 10px 0 0;
+        }
+
+        .page:first-child {
+            padding: 0;
+        }
+
+        .last-page {
+            position: relative;
+            height: 1827px;
+            margin: 0;
+            padding: 10px 0 0;
+        }
+
+        .wrapper {
+            position: relative;
+            padding: 0 90px;
+        }
+
+        .header {
+            position: relative;
+            box-sizing: border-box;
+            width: 100%;
+            height: 45px;
+            background-color: #004492;
+            border-radius: 5px 5px 0 0;
+            text-align: right;
+            padding: 15px 35px;
+        }
+
+        .title-container {
+            padding-top: 60px;
+        }
+
+        .title-container .title {
+            text-align: center;
+            font: 700 35px/47px Open Sans;
+            letter-spacing: 0;
+            color: #000000;
+            text-transform: uppercase;
+            opacity: 1;
+            margin: 0;
+        }
+
+        .title-container .subtitle {
+            text-align: center;
+            font: 600 20px/27px Open Sans;
+            letter-spacing: 0;
+            color: #004492;
+            text-transform: uppercase;
+            opacity: 1;
+            margin: 0;
+        }
+
+        .pond .title-container .title {
+            text-align: left;
+        }
+
+        .pond .title-container .subtitle {
+            text-align: left;
+        }
+
+        .finance-general, .pond-general {
+            margin-top: 30px;
+        }
+
+        .finance-summary {
+            margin-top: 55px;
+        }
+
+        .finance-summary .hpp-title {
+            margin-bottom: -10px;
+            font: 600 25px/34px Open Sans;
+        }
+
+        .finance-summary .caption-hpp-title {
+            font: normal 12px/17px Open Sans;
+            letter-spacing: 0;
+            color: #000000;
+            opacity: 1;
+        }
+
+        .finance-summary .content-hpp {
+            font: normal 16px/22px Open Sans;
+            letter-spacing: 0;
+            color: #000000;
+            opacity: 1;
+        }
+
+        .finance-summary .result-hpp {
+            font: Bold 20px/27px Open Sans;
+            letter-spacing: 0;
+            color: #000000;
+            opacity: 1;
+        }
+
+        .key-value {
+            margin-bottom: 10px;
+        }
+
+        .key-value .key {
+            display: inline-block;
+            vertical-align: middle;
+            width: 220px;
+        }
+
+        .key-value .separator {
+            display: inline-block;
+            vertical-align: middle;
+            margin: 0 10px;
+        }
+
+        .key-value .value {
+            display: inline-block;
+            vertical-align: middle;
+            margin: 0 10px;
+            width: 500px;
+        }
+
+        .finance-summary .left-item {
+            width: 575px;
+            float: left;
+            text-align: left;
+            padding: 10px 10px;
+            display: inline-block;
+            vertical-align: top;
+        }
+
+        .finance-summary .vertical-line {
+            margin-top: 30px;
+            text-align: center;
+            border: 1px solid #3C8AE3;
+            height: 1400px;
+            display: inline-block;
+            vertical-align: top;
+        }
+
+        .finance-summary .right-item {
+            width: 575px;
+            float: right;
+            text-align: left;
+            padding: 10px 10px;
+            display: inline-block;
+            vertical-align: top;
+        }
+
+        .summary-spending {
+            height: 450px;
+        }
+
+        .left-legend {
+            width: 250px;
+            float: left;
+            text-align: left;
+            padding: 10px 10px;
+            display: inline-block;
+            vertical-align: top;
+        }
+
+        .right-legend {
+            width: 250px;
+            float: left;
+            text-align: left;
+            padding: 10px 10px;
+            display: inline-block;
+            vertical-align: top;
+        }
+
+        .finance-summary .analisis-hpp-left {
+            width: 180px;
+            float: left;
+            text-align: left;
+            padding: 10px 5px;
+            display: inline-block;
+            vertical-align: top;
+        }
+
+        .finance-summary .analisis-hpp-right {
+            width: 350px;
+            float: left;
+            text-align: left;
+            padding: 10px 5px;
+            display: inline-block;
+            vertical-align: top;
+        }
+
+        .finance-summary .sama-dengan {
+            max-width: 10px;
+            float: left;
+            padding: 22px 5px;
+        }
+
+        .sama-dengan .sama-dengan-list {
+            margin-top: 5px;
+            margin-bottom: 15px;
         }
 
         .section-title {
@@ -31,6 +232,24 @@
             text-transform: uppercase;
             opacity: 1;
             margin-bottom: 0;
+        }
+
+        .title-underline {
+            left: 0;
+            width: 239px;
+            height: 4px;
+            background: #3C8AE3 0 0 no-repeat padding-box;
+            border-radius: 5px;
+            opacity: 1;
+            margin-top: 2px;
+        }
+
+        .summary-item {
+            width: 292px;
+            text-align: center;
+            padding: 30px 45px;
+            display: inline-block;
+            vertical-align: top;
         }
 
         .summary-item img {
@@ -45,8 +264,71 @@
             color: #000000;
         }
 
+        .description {
+            text-align: center;
+            font: 400 16px/22px Open Sans;
+            letter-spacing: 0;
+            color: #000000;
+        }
+
+        .legend {
+            margin-top: 35px;
+        }
+
+        .legend-item {
+            padding-right: 35px;
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        .color-box {
+            display: inline-block;
+            vertical-align: middle;
+            border-radius: 7px;
+            margin-right: 12px;
+            width: 45px;
+            height: 20px;
+        }
+
+        .color-box.box-default {
+            background: #FFFFFF 0 0 no-repeat padding-box;
+            border: 1px solid #707070;
+            opacity: 1;
+        }
+
+        .color-box.box-success {
+            background: #62B275 0 0 no-repeat padding-box;
+            border: 1px solid #62B275;
+            opacity: 1;
+        }
+
+        .color-box.box-orange {
+            background: #F5B468 0 0 no-repeat padding-box;
+            border: 1px solid #F5B468;
+            opacity: 1;
+        }
+
+        .color-box.box-danger {
+            background: #B74D4D 0 0 no-repeat padding-box;
+            border: 1px solid #B74D4D;
+            opacity: 1;
+        }
+
+        .legend-label {
+            display: inline-block;
+            vertical-align: middle;
+            font: 400 16px/22px Open Sans;
+            letter-spacing: 0;
+            color: #434343;
+            width: 192px;
+        }
+
         .column-number {
             text-align: right!important;
+        }
+
+        .column-date {
+            text-align: center!important;
         }
 
         .report-table {
@@ -58,15 +340,30 @@
             border-spacing: 0;
         }
 
+        .report-table table thead tr {
+            background: #E5E5E5 0 0 no-repeat padding-box;
+            opacity: 1;
+        }
+
         .report-table table thead tr th {
             color: #1B77DF;
-            background: #e7eaec;
             padding: 10px;
             text-align: left;
         }
 
         .report-table table td {
             border-bottom: 2px solid #D3D3D3;
+        }
+
+        .bottom-white {
+            border-top: 1px solid #ffffff!important;
+            border-bottom: none!important;
+            color: #ffffff!important;
+        }
+
+        .border-date {
+            border-left: 1px solid #979797;
+            border-right: 1px solid #979797;
         }
 
         .report-table table thead tr th:nth-child(1) {
@@ -151,6 +448,93 @@
         tfoot { display: table-row-group; }
         tr { page-break-inside: avoid; }
 
+        /*repot table 1*/
+        .report-table1 {
+            margin-top: 25px;
+        }
+
+        .report-table1 table {
+            width: 100%;
+            border-spacing: 0;
+        }
+
+        .report-table1 table thead tr {
+            background: #E5E5E5 0 0 no-repeat padding-box;
+            opacity: 1;
+        }
+
+        .report-table1 table thead tr th {
+            color: #1B77DF;
+            padding: 10px;
+            text-align: left;
+        }
+
+        .report-table1 table td {
+            border-bottom: 1px solid #979797;
+        }
+
+        .report-table1 table thead tr th:nth-child(1) {
+            padding-left: 20px;
+        }
+
+        .report-table1 table tbody tr.row-success {
+            background: #1FA543 0 0 no-repeat padding-box;
+            opacity: 1;
+        }
+
+        .report-table1 table tbody tr.row-blue {
+            background: rgb(121, 159, 202) no-repeat padding-box;
+            opacity: 1;
+            color: #ffffff;
+        }
+
+        .report-table1 table tbody tr.row-old-grey {
+            background: #979797 0 0 no-repeat padding-box;
+            opacity: 1;
+        }
+
+        .report-table1 table tfoot tr {
+            background: rgb(121, 159, 202) no-repeat padding-box;
+            opacity: 1;
+        }
+
+        .report-table1 table tfoot tr.row-danger {
+            background: #B74D4D 0 0 no-repeat padding-box;
+            opacity: 1;
+        }
+
+        .report-table1 table tbody tr.row-success td,
+        .report-table1 table tbody tr.row-danger td {
+            color: #FFFFFF;
+        }
+
+        .report-table1 table tbody tr td {
+            padding: 10px;
+            text-align: left;
+            font: 400 16px/22px Open Sans;
+            letter-spacing: 0;
+            color: #707070;
+            opacity: 1;
+        }
+
+        .report-table1 table tbody tr td:last-child {
+            padding-right: 20px;
+        }
+
+        .report-table1 table tfoot tr th {
+            color: #ffffff;
+            padding: 10px;
+            text-align: left;
+        }
+
+        .text-white{
+            color: #ffffff;
+        }
+
+        .text-old-grey{
+            color: #676662;
+        }
+
         .recap-note-title {
             text-align: left;
             font: 600 16px/22px Open Sans;
@@ -159,12 +543,75 @@
             opacity: 1;
         }
 
+        .recap-note {
+            margin-top: 20px;
+        }
+
+        .recap-note-list {
+            padding-left: 25px;
+        }
+
         .recap-note-list li {
             text-align: left;
             font: 400 16px/22px Open Sans;
             letter-spacing: 0;
             color: #000000;
             opacity: 1;
+        }
+
+        .sticker {
+            position: absolute;
+            top: 55px;
+            right: 90px;
+            width: 160px;
+            padding: 20px 15px 15px;
+            background: #E5E5E5 0 0 no-repeat padding-box;
+            border-radius: 10px;
+            opacity: 1;
+        }
+
+        .sticker-title {
+            text-align: left;
+            font: 700 38px/52px Open Sans;
+            letter-spacing: 0;
+            color: #707070;
+            opacity: 1;
+        }
+
+        .sticker-note {
+            margin-top: 5px;
+            text-align: left;
+            font: 400 13px/18px Open Sans;
+            letter-spacing: 0;
+            color: #707070;
+            opacity: 1;
+        }
+
+        .pond-data {
+            width: 911px;
+            padding: 25px 32px;
+            margin-top: 25px;
+            background: #E5E5E5 0 0 no-repeat padding-box;
+            border-radius: 10px;
+            opacity: 1;
+        }
+
+        .col {
+            max-width: 280px;
+            margin-right: 7px;
+            float: left;
+        }
+
+        .pond-data .key-value .key,
+        .pond-data .key-value .separator,
+        .pond-data .key-value .value {
+            font-weight: 700;
+        }
+
+        .clearfix::after {
+            content: "";
+            clear: both;
+            display: table;
         }
 
         .pond-data .key-value .key {
@@ -179,12 +626,34 @@
             width: 200px;
         }
 
+        .pond-summary {
+            margin-top: 30px;
+        }
+
+        .pond-summary .recap-note {
+            margin-top: 0;
+        }
+
+        .pond-sampling {
+            margin-top: 40px;
+        }
+
         .pond-sampling .description-wrapper {
             margin-top: 15px;
         }
 
         .pond-sampling .report-table table {
             width: auto;
+        }
+
+        .grid {
+            margin-top: 22px;
+        }
+
+        .grid-item {
+            display: inline-block;
+            width: 365px;
+            margin-bottom: 25px;
         }
 
         .grid-item img {
@@ -199,6 +668,15 @@
             text-align: left;
             width: 280px;
         }
+
+        .chart-container {
+            margin-top: 32px;
+        }
+
+        .chart-details-container {
+            padding: 5px 10px;
+        }
+
         .chart-details-container .details {
             height: 160px;
             width: 260px;
@@ -208,6 +686,36 @@
             opacity: 1;
             text-align: center;
         }
+
+        .summary-span {
+            border-radius: 17px;
+            width: 180px!important;
+            padding-bottom: 5px!important;
+            padding-left: 0!important;
+            padding-right: 25px!important;
+            color: #ffffff!important;
+            margin-bottom: 10px;
+        }
+
+        .span-red {
+            background: #B74D4D 0% 0% no-repeat padding-box;
+            opacity: 1;
+        }
+
+        .span-blue {
+            background: #6EA3D9 0% 0% no-repeat padding-box;
+            opacity: 1;
+        }
+
+        .span-light-blue {
+            background-color: #64b3bb;
+        }
+
+        .span-green {
+            background: #62B275 0% 0% no-repeat padding-box;
+            opacity: 1;
+        }
+
         .chart-details-container .details img,
         .chart-details-container .details span,
         .chart-details-container .details strong {
@@ -241,151 +749,128 @@
             width: 100%;
             padding: 0 10px;
         }
+
+        .text-success {
+            color: #1FA543;
+        }
+
+        .text-warning {
+            color: #FF9D00;
+        }
+
+        .text-danger {
+            color: #B74D4D;
+        }
+
+        .spacer {
+            padding-top: 45px;
+        }
     </style>
 </head>
 
 @php
-    /** @var \App\Product $products */
-$dataset = $products->map(function ($p) {
-    return collect([
-        'Key' => $p->abbreviation_name,
-        'Value' => $p->stock
-    ]);
-})
+    $now = \Carbon\Carbon::now()->format('d M Y H:i');
+        /** @var \App\Product $products */
+    $dataset = $products->map(function ($p) {
+        return collect([
+            'Key' => $p->abbreviation_name,
+            'Value' => $p->stock
+        ]);
+    })
 @endphp
 <body>
 {{--page 2 arus pemasukan perbulan--}}
-    <div class="page">
-        <div class="ponds-recap">
-            <h3 class="section-title">Laporan Stok</h3>
-            <hr>
-            <span class="recap-note-title">Data Laporan Stok Brang Lembaga A</span>
-            <script>
-                var styleRules = [];
-                var requiredSheets = [...]; // list of required CSS files
-                for (var sheet of document.styleSheet)) {
-                    if (sheet.href) {
-                        var sheetName = sheet.href.split('/').pop();
-                        if (requiredSheets.indexOf(sheetName) != -1) {
-                            var rules = Array.from(sheet.cssRules).map(rule => rule.cssText);
-                            styleRules = styleRules.concat(rules);
-                        }
-                    }
-                }
-                var styleText = styleRules.join(' ');
-                var styleNode = document.createCDATASection(styleRules);
+<div class="page">
+    {{--    <div class="header">--}}
+    {{--        <img src="{!! public_path('fonts/Jala.svg') !!}" alt="" style="height: 15px; float:right">--}}
+    {{--    </div>--}}
+    <div class="wrapper">
+        <div class="pond">
+            <div class="ponds-recap">
+                <h3 class="section-title">Laporan Stok Barang</h3>
+                <hr class="title-underline" align="left">
+                <span class="recap-note-title">Laporan stok barang {{ $now }}</span>
+                <div>
+                    <div id="my_dataviz"></div>
+                </div>
+                <script>
+                    let margin = {top: 20, right: 30, bottom: 40, left: 90},
+                        width = 600 - margin.left - margin.right,
+                        height = 400 - margin.top - margin.bottom;
 
-                var svg = d3.select("svg"),
-                    img = new Image(),
-                    serializer = new XMLSerializer(),
+                    // append the svg object to the body of the page
+                    let svg = d3.select("#my_dataviz")
+                        .append("svg")
+                        .attr("width", width + margin.left + margin.right)
+                        .attr("height", height + margin.top + margin.bottom)
+                        .append("g")
+                        .attr("transform",
+                            "translate(" + margin.left + "," + margin.top + ")");
 
-// prepend style to svg
-                    svg.insert('defs',":first-child")
-                var styleEl = d3.select("svg defs")
-                    .append('style')
-                    .attr('type','text/css');
+                    data = @json($dataset);
 
-                styleEl.node().appendChild(styleNode);
+                    // Add X axis
+                    let x = d3.scaleLinear()
+                        .domain([0, d3.max(data, function(d) {
+                            return d.Value;
+                        })])
+                        .range([ 0, width]);
+                    svg.append("g")
+                        .attr("transform", "translate(0," + height + ")")
+                        .call(d3.axisBottom(x))
+                        .selectAll("text")
+                        .attr("transform", "translate(-10,0)rotate(-45)")
+                        .style("text-anchor", "end");
 
-                var svgStr = serializer.serializeToString(svg.node());
-                img.src = 'data:image/svg+xml;base64,'+window.btoa(unescape(encodeURIComponent(svgStr)));
+                    // Y axis
+                    let y = d3.scaleBand()
+                        .range([ 0, height ])
+                        .domain(data.map(function(d) { return d.Key; }))
+                        .padding(.1);
+                    svg.append("g")
+                        .call(d3.axisLeft(y))
+                        .selectAll("text")
+                        .attr("transform", "translate(-10,0)rotate(-45)")
+                        .style("text-anchor", "end");
 
-                var bbox = svg.getBoundingClientRect();
+                    //Bars
+                    svg.selectAll("myRect")
+                        .data(data)
+                        .enter()
+                        .append("rect")
+                        .attr("x", x(0) )
+                        .attr("y", function(d) { return y(d.Key); })
+                        .attr("width", function(d) { return x(d.Value); })
+                        .attr("height", y.bandwidth() )
+                        .attr("fill", "#69b3a2");
+                </script>
 
-                var canvas = document.createElement("canvas");
-
-                canvas.width = bbox.width;
-                canvas.height = bbox.height;
-                canvas.getContext("2d").drawImage(img,0,0,bbox.width,bbox.width);
-
-                canvas.parentNode.replaceChild(canvas, svg);
-            </script>
-{{--            <img id="myImg">--}}
-{{--            <div>--}}
-{{--                <div id="my_dataviz"></div>--}}
-{{--            </div>--}}
-{{--            <script>--}}
-{{--                let margin = {top: 20, right: 30, bottom: 40, left: 90},--}}
-{{--                    width = 600 - margin.left - margin.right,--}}
-{{--                    height = 400 - margin.top - margin.bottom;--}}
-
-{{--                // append the svg object to the body of the page--}}
-{{--                let svg = d3.select("#my_dataviz")--}}
-{{--                    .append("svg")--}}
-{{--                    .attr("width", width + margin.left + margin.right)--}}
-{{--                    .attr("height", height + margin.top + margin.bottom)--}}
-{{--                    .append("g")--}}
-{{--                    .attr("transform",--}}
-{{--                        "translate(" + margin.left + "," + margin.top + ")");--}}
-
-{{--                data = @json($dataset);--}}
-
-{{--                // Add X axis--}}
-{{--                let x = d3.scaleLinear()--}}
-{{--                    .domain([0, d3.max(data, function(d) {--}}
-{{--                        return d.Value;--}}
-{{--                    })])--}}
-{{--                    .range([ 0, width]);--}}
-{{--                svg.append("g")--}}
-{{--                    .attr("transform", "translate(0," + height + ")")--}}
-{{--                    .call(d3.axisBottom(x))--}}
-{{--                    .selectAll("text")--}}
-{{--                    .attr("transform", "translate(-10,0)rotate(-45)")--}}
-{{--                    .style("text-anchor", "end");--}}
-
-{{--                // Y axis--}}
-{{--                let y = d3.scaleBand()--}}
-{{--                    .range([ 0, height ])--}}
-{{--                    .domain(data.map(function(d) { return d.Key; }))--}}
-{{--                    .padding(.1);--}}
-{{--                svg.append("g")--}}
-{{--                    .call(d3.axisLeft(y))--}}
-{{--                    .selectAll("text")--}}
-{{--                    .attr("transform", "translate(-10,0)rotate(-45)")--}}
-{{--                    .style("text-anchor", "end");--}}
-
-{{--                //Bars--}}
-{{--                svg.selectAll("myRect")--}}
-{{--                    .data(data)--}}
-{{--                    .enter()--}}
-{{--                    .append("rect")--}}
-{{--                    .attr("x", x(0) )--}}
-{{--                    .attr("y", function(d) { return y(d.Key); })--}}
-{{--                    .attr("width", function(d) { return x(d.Value); })--}}
-{{--                    .attr("height", y.bandwidth() )--}}
-{{--                    .attr("fill", "#69b3a2");--}}
-
-{{--                var SVGDomElement = document.getElementById("my_dataviz").firstChild;--}}
-{{--                var serializedSVG = new XMLSerializer().serializeToString(SVGDomElement);--}}
-{{--                var base64Data = "data:image/svg+xml;base64," + window.btoa(serializedSVG);--}}
-{{--                // document.getElementById("myImg").src = base64Data;--}}
-{{--                document.getElementById("myImg").src = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2MDAiIGhlaWdodD0iNDAwIj48ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSg5MCwyMCkiPjxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDAsMzQwKSIgZmlsbD0ibm9uZSIgZm9udC1zaXplPSIxMCIgZm9udC1mYW1pbHk9InNhbnMtc2VyaWYiIHRleHQtYW5jaG9yPSJtaWRkbGUiPjxwYXRoIGNsYXNzPSJkb21haW4iIHN0cm9rZT0iIzAwMCIgZD0iTTAuNSw2VjAuNUg0ODAuNVY2Ii8+PGcgY2xhc3M9InRpY2siIG9wYWNpdHk9IjEiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDAuNSwwKSI+PGxpbmUgc3Ryb2tlPSIjMDAwIiB5Mj0iNiIvPjx0ZXh0IGZpbGw9IiMwMDAiIHk9IjkiIGR5PSIwLjcxZW0iIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0xMCwwKXJvdGF0ZSgtNDUpIiBzdHlsZT0idGV4dC1hbmNob3I6IGVuZDsiPjAuMDwvdGV4dD48L2c+PGcgY2xhc3M9InRpY2siIG9wYWNpdHk9IjEiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDQ4LjUsMCkiPjxsaW5lIHN0cm9rZT0iIzAwMCIgeTI9IjYiLz48dGV4dCBmaWxsPSIjMDAwIiB5PSI5IiBkeT0iMC43MWVtIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtMTAsMClyb3RhdGUoLTQ1KSIgc3R5bGU9InRleHQtYW5jaG9yOiBlbmQ7Ij4wLjU8L3RleHQ+PC9nPjxnIGNsYXNzPSJ0aWNrIiBvcGFjaXR5PSIxIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSg5Ni41LDApIj48bGluZSBzdHJva2U9IiMwMDAiIHkyPSI2Ii8+PHRleHQgZmlsbD0iIzAwMCIgeT0iOSIgZHk9IjAuNzFlbSIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTEwLDApcm90YXRlKC00NSkiIHN0eWxlPSJ0ZXh0LWFuY2hvcjogZW5kOyI+MS4wPC90ZXh0PjwvZz48ZyBjbGFzcz0idGljayIgb3BhY2l0eT0iMSIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMTQ0LjUsMCkiPjxsaW5lIHN0cm9rZT0iIzAwMCIgeTI9IjYiLz48dGV4dCBmaWxsPSIjMDAwIiB5PSI5IiBkeT0iMC43MWVtIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtMTAsMClyb3RhdGUoLTQ1KSIgc3R5bGU9InRleHQtYW5jaG9yOiBlbmQ7Ij4xLjU8L3RleHQ+PC9nPjxnIGNsYXNzPSJ0aWNrIiBvcGFjaXR5PSIxIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgxOTIuNSwwKSI+PGxpbmUgc3Ryb2tlPSIjMDAwIiB5Mj0iNiIvPjx0ZXh0IGZpbGw9IiMwMDAiIHk9IjkiIGR5PSIwLjcxZW0iIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0xMCwwKXJvdGF0ZSgtNDUpIiBzdHlsZT0idGV4dC1hbmNob3I6IGVuZDsiPjIuMDwvdGV4dD48L2c+PGcgY2xhc3M9InRpY2siIG9wYWNpdHk9IjEiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDI0MC41LDApIj48bGluZSBzdHJva2U9IiMwMDAiIHkyPSI2Ii8+PHRleHQgZmlsbD0iIzAwMCIgeT0iOSIgZHk9IjAuNzFlbSIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTEwLDApcm90YXRlKC00NSkiIHN0eWxlPSJ0ZXh0LWFuY2hvcjogZW5kOyI+Mi41PC90ZXh0PjwvZz48ZyBjbGFzcz0idGljayIgb3BhY2l0eT0iMSIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMjg4LjUsMCkiPjxsaW5lIHN0cm9rZT0iIzAwMCIgeTI9IjYiLz48dGV4dCBmaWxsPSIjMDAwIiB5PSI5IiBkeT0iMC43MWVtIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtMTAsMClyb3RhdGUoLTQ1KSIgc3R5bGU9InRleHQtYW5jaG9yOiBlbmQ7Ij4zLjA8L3RleHQ+PC9nPjxnIGNsYXNzPSJ0aWNrIiBvcGFjaXR5PSIxIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgzMzYuNSwwKSI+PGxpbmUgc3Ryb2tlPSIjMDAwIiB5Mj0iNiIvPjx0ZXh0IGZpbGw9IiMwMDAiIHk9IjkiIGR5PSIwLjcxZW0iIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0xMCwwKXJvdGF0ZSgtNDUpIiBzdHlsZT0idGV4dC1hbmNob3I6IGVuZDsiPjMuNTwvdGV4dD48L2c+PGcgY2xhc3M9InRpY2siIG9wYWNpdHk9IjEiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDM4NC41LDApIj48bGluZSBzdHJva2U9IiMwMDAiIHkyPSI2Ii8+PHRleHQgZmlsbD0iIzAwMCIgeT0iOSIgZHk9IjAuNzFlbSIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTEwLDApcm90YXRlKC00NSkiIHN0eWxlPSJ0ZXh0LWFuY2hvcjogZW5kOyI+NC4wPC90ZXh0PjwvZz48ZyBjbGFzcz0idGljayIgb3BhY2l0eT0iMSIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoNDMyLjUsMCkiPjxsaW5lIHN0cm9rZT0iIzAwMCIgeTI9IjYiLz48dGV4dCBmaWxsPSIjMDAwIiB5PSI5IiBkeT0iMC43MWVtIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtMTAsMClyb3RhdGUoLTQ1KSIgc3R5bGU9InRleHQtYW5jaG9yOiBlbmQ7Ij40LjU8L3RleHQ+PC9nPjxnIGNsYXNzPSJ0aWNrIiBvcGFjaXR5PSIxIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSg0ODAuNSwwKSI+PGxpbmUgc3Ryb2tlPSIjMDAwIiB5Mj0iNiIvPjx0ZXh0IGZpbGw9IiMwMDAiIHk9IjkiIGR5PSIwLjcxZW0iIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0xMCwwKXJvdGF0ZSgtNDUpIiBzdHlsZT0idGV4dC1hbmNob3I6IGVuZDsiPjUuMDwvdGV4dD48L2c+PC9nPjxnIGZpbGw9Im5vbmUiIGZvbnQtc2l6ZT0iMTAiIGZvbnQtZmFtaWx5PSJzYW5zLXNlcmlmIiB0ZXh0LWFuY2hvcj0iZW5kIj48cGF0aCBjbGFzcz0iZG9tYWluIiBzdHJva2U9IiMwMDAiIGQ9Ik0tNiwwLjVIMC41VjM0MC41SC02Ii8+PGcgY2xhc3M9InRpY2siIG9wYWNpdHk9IjEiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDAsNDUuNjA5NzU2MDk3NTYwOTcpIj48bGluZSBzdHJva2U9IiMwMDAiIHgyPSItNiIvPjx0ZXh0IGZpbGw9IiMwMDAiIHg9Ii05IiBkeT0iMC4zMmVtIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtMTAsMClyb3RhdGUoLTQ1KSIgc3R5bGU9InRleHQtYW5jaG9yOiBlbmQ7Ij5NZWphIEw8L3RleHQ+PC9nPjxnIGNsYXNzPSJ0aWNrIiBvcGFjaXR5PSIxIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgwLDEyOC41MzY1ODUzNjU4NTM2NSkiPjxsaW5lIHN0cm9rZT0iIzAwMCIgeDI9Ii02Ii8+PHRleHQgZmlsbD0iIzAwMCIgeD0iLTkiIGR5PSIwLjMyZW0iIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0xMCwwKXJvdGF0ZSgtNDUpIiBzdHlsZT0idGV4dC1hbmNob3I6IGVuZDsiPk1lamEgVDwvdGV4dD48L2c+PGcgY2xhc3M9InRpY2siIG9wYWNpdHk9IjEiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDAsMjExLjQ2MzQxNDYzNDE0NjM1KSI+PGxpbmUgc3Ryb2tlPSIjMDAwIiB4Mj0iLTYiLz48dGV4dCBmaWxsPSIjMDAwIiB4PSItOSIgZHk9IjAuMzJlbSIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTEwLDApcm90YXRlKC00NSkiIHN0eWxlPSJ0ZXh0LWFuY2hvcjogZW5kOyI+TWVqYSBEPC90ZXh0PjwvZz48ZyBjbGFzcz0idGljayIgb3BhY2l0eT0iMSIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMCwyOTQuMzkwMjQzOTAyNDM5MDcpIj48bGluZSBzdHJva2U9IiMwMDAiIHgyPSItNiIvPjx0ZXh0IGZpbGw9IiMwMDAiIHg9Ii05IiBkeT0iMC4zMmVtIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtMTAsMClyb3RhdGUoLTQ1KSIgc3R5bGU9InRleHQtYW5jaG9yOiBlbmQ7Ij5NZWphIEs8L3RleHQ+PC9nPjwvZz48cmVjdCB4PSIwIiB5PSI4LjI5MjY4MjkyNjgyOTI1OCIgd2lkdGg9IjQ4MCIgaGVpZ2h0PSI3NC42MzQxNDYzNDE0NjM0MiIgZmlsbD0iIzY5YjNhMiIvPjxyZWN0IHg9IjAiIHk9IjkxLjIxOTUxMjE5NTEyMTk1IiB3aWR0aD0iMCIgaGVpZ2h0PSI3NC42MzQxNDYzNDE0NjM0MiIgZmlsbD0iIzY5YjNhMiIvPjxyZWN0IHg9IjAiIHk9IjE3NC4xNDYzNDE0NjM0MTQ2NCIgd2lkdGg9IjAiIGhlaWdodD0iNzQuNjM0MTQ2MzQxNDYzNDIiIGZpbGw9IiM2OWIzYTIiLz48cmVjdCB4PSIwIiB5PSIyNTcuMDczMTcwNzMxNzA3MzYiIHdpZHRoPSIwIiBoZWlnaHQ9Ijc0LjYzNDE0NjM0MTQ2MzQyIiBmaWxsPSIjNjliM2EyIi8+PC9nPjwvc3ZnPg==";--}}
-{{--            </script>--}}
-
-            <div class="report-table">
-                <table>
-                    <thead>
-                    <tr>
-                        <th width="1px" class="text-center">No</th>
-                        <th class="text-center">Kategori</th>
-                        <th class="text-center">Nama</th>
-                        <th class="column-number">Stok</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    @foreach($products as $key => $product)
+                <div class="report-table">
+                    <table>
+                        <thead>
                         <tr>
-                            <td class="text-right">{{ $key+1 }}</td>
-                            <td>{{ $product->product_category->name }}</td>
-                            <td>{{ $product->name }}</td>
-                            <td class="column-number">{{ $product->stock }}</td>
+                            <th width="1px" class="text-center">No</th>
+                            <th class="text-center">Kategori</th>
+                            <th class="text-center">Nama</th>
+                            <th class="column-number">Stok</th>
                         </tr>
-                    @endforeach
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                        @foreach($products as $key => $product)
+                            <tr>
+                                <td class="text-right">{{ $key+1 }}</td>
+                                <td>{{ $product->product_category->name }}</td>
+                                <td>{{ $product->name }}</td>
+                                <td class="column-number">{{ $product->stock }}</td>
+                            </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
+</div>
 
 </body>
 </html>

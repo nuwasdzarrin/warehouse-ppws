@@ -783,6 +783,7 @@
     </style>
 </head>
 @php
+    $now = \Carbon\Carbon::now()->format('d M Y H:i');
     /** @var \App\Transaction $transactions */
     $transaction_in = $transactions->map(function ($transaction) {
         return collect([
@@ -822,9 +823,9 @@
     <div class="wrapper">
         <div class="pond">
             <div class="ponds-recap">
-                <h3 class="section-title">Detail Transaksi</h3>
+                <h3 class="section-title">Laporan Transaksi</h3>
                 <hr class="title-underline" align="left">
-                <span class="recap-note-title">Ini adalah detail dari transaksi keluar masuk</span>
+                <span class="recap-note-title">Laporan Transaksi {{ $now }}</span>
                 <div>
                     <div id="my_dataviz"></div>
                 </div>
