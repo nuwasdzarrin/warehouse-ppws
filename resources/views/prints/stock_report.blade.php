@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta content="text/html; charset=UTF-8" http-equiv="content-type">
-    <script src="https://d3js.org/d3.v4.min.js"></script>
+    uuggg
     {{--    <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>--}}
     <style type="text/css">
         @import url('https://themes.googleusercontent.com/fonts/css?kit=uTXSPZwEp3TWQFaTM2vlS3s421DlrhI9eSNlJenMRKM_aAifJoacbFX6HU9PyTi6');

@@ -127,6 +127,9 @@
         @endphp
         <script>
             $(function () {
+                console.log(@json($labels));
+                console.log(@json($labels_name));
+                console.log(@json($value));
                 let barData = {
                     labels: @json($labels),
                     labels_name: @json($labels_name),
