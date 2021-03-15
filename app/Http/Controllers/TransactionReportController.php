@@ -43,8 +43,13 @@ class TransactionReportController extends Controller
             $pdf = new Pdf;
             $pdf->addPage($render);
             $pdf->setOptions(['javascript-delay' => 5000]);
-            $pdf->send('Laporan Transaksi '.\Carbon\Carbon::now()->format('d-m-Y Hi').'.pdf');
-            return redirect()->route('transaction_report');
+
+            $pdf->saveAs(public_path('reports/transactions/Laporan Transaksi.pdf'));
+
+            return response()->download(public_path('reports/transactions/Laporan Transaksi.pdf'));
+
+//            $pdf->send('Laporan Transaksi '.\Carbon\Carbon::now()->format('d-m-Y Hi').'.pdf');
+//            return redirect()->route('transaction_report');
 
 //            return PDF::loadView('prints.transaction_report', [ 'transactions' => $transactions ])
 //                ->setPaper('a3')
