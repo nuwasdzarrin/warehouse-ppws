@@ -41,7 +41,12 @@ class StockReportController extends Controller
             $pdf = new Pdf;
             $pdf->addPage($render);
             $pdf->setOptions(['javascript-delay' => 5000]);
-            return $pdf->send('Laporan Stok '.\Carbon\Carbon::now()->format('d M Y').'.pdf');
+
+            $pdf->saveAs(public_path('reports/stocks/Laporan Stok '.\Carbon\Carbon::now()->format('d M Y').'.pdf'));
+
+            return response()->download(public_path('reports/stocks/Laporan Stok '.\Carbon\Carbon::now()->format('d M Y').'.pdf'));
+
+//            return $pdf->send('Laporan Stok '.\Carbon\Carbon::now()->format('d M Y').'.pdf');
 
 //            $pdf = PDF::loadView('prints.stock_report', [ 'products' => $products ])
 //                ->setPaper('a3')
