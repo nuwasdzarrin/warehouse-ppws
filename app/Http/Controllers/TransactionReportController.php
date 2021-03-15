@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Transaction;
+use Illuminate\Http\RedirectResponse;
 use mikehaertl\wkhtmlto\Pdf;
 use Illuminate\Database\Eloquent\Builder;
 //use Barryvdh\Snappy\Facades\SnappyPdf as PDF;
@@ -25,7 +26,7 @@ class TransactionReportController extends Controller
     /**
      * Invoke single action controller.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\Response|RedirectResponse
      */
     public function __invoke()
     {
@@ -42,7 +43,8 @@ class TransactionReportController extends Controller
             $pdf = new Pdf;
             $pdf->addPage($render);
             $pdf->setOptions(['javascript-delay' => 5000]);
-            return $pdf->send('Laporan Transaksi '.\Carbon\Carbon::now()->format('d M Y').'.pdf');
+            $pdf->send('Laporan Transaksi '.\Carbon\Carbon::now()->format('d-m-Y Hi').'.pdf');
+            return redirect()->route('transaction_report');
 
 //            return PDF::loadView('prints.transaction_report', [ 'transactions' => $transactions ])
 //                ->setPaper('a3')
