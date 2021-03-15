@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Product;
 use Illuminate\Database\Eloquent\Builder;
-//use mikehaertl\wkhtmlto\Pdf;
+// use mikehaertl\wkhtmlto\Pdf;
 use Barryvdh\Snappy\Facades\SnappyPdf as PDF;
 
 /**
@@ -37,14 +37,21 @@ class StockReportController extends Controller
         })->filter()->paginate()->appends(request()->query());
 
         if (request()->exists('pdf')) {
-//            $render = view('prints.stock_report', [ 'products' => $products ])->render();
-//            $pdf = new Pdf;
-//            $pdf->addPage($render);
-//            $pdf->setOptions(['javascript-delay' => 5000]);
-//
-//            $pdf->saveAs(public_path('reports/stocks/Laporan Stok.pdf'));
-//
-//            return response()->download(public_path('reports/stocks/Laporan Stok.pdf'));
+            // $render = view('prints.stock_report', [ 'products' => $products ])->render();
+            // $pdf = new Pdf;
+            // $pdf->addPage($render);
+            // $pdf->setOptions(['javascript-delay' => 5000]);
+
+            // if (!$pdf->saveAs(public_path('reports/stocks/LaporanStok.pdf'))) {
+            //     $error = $pdf->getError();
+            //     dd($error);
+            // }
+
+            // $pdf->saveAs(public_path('reports/stocks/LaporanStok.pdf'));
+
+            // dd(public_path('reports/stocks/LaporanStok.pdf'));
+
+            // return response()->download(public_path('reports/stocks/Laporan Stok.pdf'));
 
 //            return $pdf->send('Laporan Stok '.\Carbon\Carbon::now()->format('d M Y').'.pdf');
 
