@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Product;
 use Illuminate\Database\Eloquent\Builder;
-use mikehaertl\wkhtmlto\Pdf;
-//use Barryvdh\Snappy\Facades\SnappyPdf as PDF;
+//use mikehaertl\wkhtmlto\Pdf;
+use Barryvdh\Snappy\Facades\SnappyPdf as PDF;
 
 /**
  * StockReportController
@@ -37,25 +37,25 @@ class StockReportController extends Controller
         })->filter()->paginate()->appends(request()->query());
 
         if (request()->exists('pdf')) {
-            $render = view('prints.stock_report', [ 'products' => $products ])->render();
-            $pdf = new Pdf;
-            $pdf->addPage($render);
-            $pdf->setOptions(['javascript-delay' => 5000]);
-
-            $pdf->saveAs(public_path('reports/stocks/Laporan Stok.pdf'));
-
-            return response()->download(public_path('reports/stocks/Laporan Stok.pdf'));
+//            $render = view('prints.stock_report', [ 'products' => $products ])->render();
+//            $pdf = new Pdf;
+//            $pdf->addPage($render);
+//            $pdf->setOptions(['javascript-delay' => 5000]);
+//
+//            $pdf->saveAs(public_path('reports/stocks/Laporan Stok.pdf'));
+//
+//            return response()->download(public_path('reports/stocks/Laporan Stok.pdf'));
 
 //            return $pdf->send('Laporan Stok '.\Carbon\Carbon::now()->format('d M Y').'.pdf');
 
-//            $pdf = PDF::loadView('prints.stock_report', [ 'products' => $products ])
-//                ->setPaper('a3')
-//                ->setOption('margin-bottom', 10)
-//                ->setOption('enable-javascript', true)
-//                ->setOption('javascript-delay', 5000)
-//                ->setOption('title', "Cetak Laporan Transaksi");
-//            $pdf->inline("cetak-laporan-tarnsaksi.pdf");
-//            return $pdf->stream('cetak-laporan-stock.pdf');
+            $pdf = PDF::loadView('prints.stock_report', [ 'products' => $products ])
+                ->setPaper('a3')
+                ->setOption('margin-bottom', 10)
+                ->setOption('enable-javascript', true)
+                ->setOption('javascript-delay', 5000)
+                ->setOption('title', "Cetak Laporan Transaksi");
+            $pdf->inline("cetak-laporan-tarnsaksi.pdf");
+            return $pdf->stream('cetak-laporan-stock.pdf');
         }
 
 //        script for debugging
