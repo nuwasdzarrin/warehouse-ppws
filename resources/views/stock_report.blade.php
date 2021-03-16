@@ -21,7 +21,7 @@
                 <div class="ibox-content">
                     @if($products->count())
                     <div>
-                        <canvas id="barChart" height="90"></canvas>
+                        <canvas id="barChart"></canvas>
                     </div>
                     <div class="row m-t-sm">
                         <div class="col-md-8 col-md-offset-2">
@@ -191,6 +191,13 @@
 @push('body')
     <!-- ChartJS-->
     <script src="/js/plugins/chartJs/Chart.min.js"></script>
+    <script>
+        var lbr = window.innerWidth;
+        var barGraph = document.getElementById('barChart');
+        if (lbr > 1024) barGraph.height = 90;
+        else if (lbr > 426) barGraph.height = 110;
+        else barGraph.height = 250;
+    </script>
     @if($products->count())
         @php
             /** @var \App\Product $products */

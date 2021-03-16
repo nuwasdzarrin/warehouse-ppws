@@ -41,7 +41,7 @@
                 </div>
                 <div class="ibox-content">
                     <div>
-                        <canvas id="lineChart" height="80"></canvas>
+                        <canvas id="lineChart"></canvas>
                     </div>
                 </div>
             </div>
@@ -300,6 +300,13 @@
 @push('body')
     <!-- ChartJS-->
     <script src="js/plugins/chartJs/Chart.min.js"></script>
+    <script>
+        var lbr = window.innerWidth;
+        var barGraph = document.getElementById('lineChart');
+        if (lbr > 1024) barGraph.height = 90;
+        else if (lbr > 426) barGraph.height = 110;
+        else barGraph.height = 250;
+    </script>
 {{--    <script src="js/demo/chartjs-demo.js"></script>--}}
     @php
         $indo_month = ['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
