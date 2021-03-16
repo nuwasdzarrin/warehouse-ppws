@@ -3,6 +3,15 @@
 @section('content-title', ucwords(__('stock_report.plural')))
 
 @section('content')
+    @php
+            /** @var \App\Product $products */
+        $dataset = $products->map(function ($p) {
+            return collect([
+                'Key' => $p->abbreviation_name,
+                'Value' => $p->stock
+            ]);
+        });
+    @endphp
     <div class="row">
         <div class="col-md-12">
             <div class="ibox float-e-margins">
@@ -45,6 +54,63 @@
             </div>
         </div>
     </div>
+{{--    grafik 2 display none for pdf--}}
+    <div>
+        <div id="my_dataviz" style="display: none"></div>
+    </div>
+    <script>
+        let margin = {top: 20, right: 30, bottom: 40, left: 90},
+            width = 600 - margin.left - margin.right,
+            height = 400 - margin.top - margin.bottom;
+
+        // append the svg object to the body of the page
+        let svg = d3.select("#my_dataviz")
+            .append("svg")
+            .attr("width", width + margin.left + margin.right)
+            .attr("height", height + margin.top + margin.bottom)
+            .append("g")
+            .attr("transform",
+                "translate(" + margin.left + "," + margin.top + ")");
+
+        data = @json($dataset);
+
+        // Add X axis
+        let x = d3.scaleLinear()
+            .domain([0, d3.max(data, function(d) {
+                return d.Value;
+            })])
+            .range([ 0, width]);
+        svg.append("g")
+            .attr("transform", "translate(0," + height + ")")
+            .call(d3.axisBottom(x))
+            .selectAll("text")
+            .attr("transform", "translate(-10,0)rotate(-45)")
+            .style("text-anchor", "end");
+
+        // Y axis
+        let y = d3.scaleBand()
+            .range([ 0, height ])
+            .domain(data.map(function(d) { return d.Key; }))
+            .padding(.1);
+        svg.append("g")
+            .call(d3.axisLeft(y))
+            .selectAll("text")
+            .attr("transform", "translate(-10,0)rotate(-45)")
+            .style("text-anchor", "end");
+
+        //Bars
+        svg.selectAll("myRect")
+            .data(data)
+            .enter()
+            .append("rect")
+            .attr("x", x(0) )
+            .attr("y", function(d) { return y(d.Key); })
+            .attr("width", function(d) { return x(d.Value); })
+            .attr("height", y.bandwidth() )
+            .attr("fill", "#69b3a2");
+    </script>
+{{--    end of grafik 2 display none--}}
+
     <div class="row">
       <div class="col-md-12">
         @component(config('generator.view_component').'components.panel')
@@ -53,9 +119,19 @@
           @endslot
           @slot('tools')
               <div class="ibox-tools">
-                  <a href="{{ route('stock_report', ['pdf']) }}" class="btn btn-primary btn-sm">
-                      <i class="fa fa-print"></i> Cetak Laporan
-                  </a>
+                  <form action="{{ route('stock_report.print') }}" method="POST">
+                      @csrf
+                      <div class="form-group">
+                          <input type="hidden" name="pdf" value="true">
+                          <input type="hidden" name="chartImg" id="chartImg">
+                          <button class="btn btn-primary btn-sm" type="submit"><i class="fa fa-print"></i> Cetak Laporan</button>
+                      </div>
+                  </form>
+                  <script type="text/javascript">
+                      var s = new XMLSerializer().serializeToString(document.getElementById("my_dataviz").firstChild);
+                      var encodedData = 'data:image/svg+xml;base64,' + window.btoa(s);
+                      document.getElementById("chartImg").value = encodedData;
+                  </script>
               </div>
           @endslot
             @if (session('status'))
@@ -109,6 +185,9 @@
       </div>
     </div>
 @endsection
+@push('head')
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+@endpush
 @push('body')
     <!-- ChartJS-->
     <script src="/js/plugins/chartJs/Chart.min.js"></script>

@@ -2,8 +2,6 @@
 <html>
 <head>
     <meta content="text/html; charset=UTF-8" http-equiv="content-type">
-    <script src="https://d3js.org/d3.v4.min.js"></script>
-    {{--    <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>--}}
     <style type="text/css">
         @import url('https://themes.googleusercontent.com/fonts/css?kit=uTXSPZwEp3TWQFaTM2vlS3s421DlrhI9eSNlJenMRKM_aAifJoacbFX6HU9PyTi6');
         @import url('https://fonts.googleapis.com/css?family=Roboto+Mono:400,500&display=swap');
@@ -770,13 +768,6 @@
 
 @php
     $now = \Carbon\Carbon::now()->format('d M Y H:i');
-        /** @var \App\Product $products */
-    $dataset = $products->map(function ($p) {
-        return collect([
-            'Key' => $p->abbreviation_name,
-            'Value' => $p->stock
-        ]);
-    })
 @endphp
 <body>
 {{--page 2 arus pemasukan perbulan--}}
@@ -791,59 +782,8 @@
                 <hr class="title-underline" align="left">
                 <span class="recap-note-title">Laporan stok barang {{ $now }}</span>
                 <div>
-                    <div id="my_dataviz"></div>
+                    <img src="{{ $chartImg }}" alt="chart-image">
                 </div>
-                <script>
-                    let margin = {top: 20, right: 30, bottom: 40, left: 90},
-                        width = 600 - margin.left - margin.right,
-                        height = 400 - margin.top - margin.bottom;
-
-                    // append the svg object to the body of the page
-                    let svg = d3.select("#my_dataviz")
-                        .append("svg")
-                        .attr("width", width + margin.left + margin.right)
-                        .attr("height", height + margin.top + margin.bottom)
-                        .append("g")
-                        .attr("transform",
-                            "translate(" + margin.left + "," + margin.top + ")");
-
-                    data = @json($dataset);
-
-                    // Add X axis
-                    let x = d3.scaleLinear()
-                        .domain([0, d3.max(data, function(d) {
-                            return d.Value;
-                        })])
-                        .range([ 0, width]);
-                    svg.append("g")
-                        .attr("transform", "translate(0," + height + ")")
-                        .call(d3.axisBottom(x))
-                        .selectAll("text")
-                        .attr("transform", "translate(-10,0)rotate(-45)")
-                        .style("text-anchor", "end");
-
-                    // Y axis
-                    let y = d3.scaleBand()
-                        .range([ 0, height ])
-                        .domain(data.map(function(d) { return d.Key; }))
-                        .padding(.1);
-                    svg.append("g")
-                        .call(d3.axisLeft(y))
-                        .selectAll("text")
-                        .attr("transform", "translate(-10,0)rotate(-45)")
-                        .style("text-anchor", "end");
-
-                    //Bars
-                    svg.selectAll("myRect")
-                        .data(data)
-                        .enter()
-                        .append("rect")
-                        .attr("x", x(0) )
-                        .attr("y", function(d) { return y(d.Key); })
-                        .attr("width", function(d) { return x(d.Value); })
-                        .attr("height", y.bandwidth() )
-                        .attr("fill", "#69b3a2");
-                </script>
 
                 <div class="report-table">
                     <table>
