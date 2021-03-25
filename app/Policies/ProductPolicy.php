@@ -19,7 +19,7 @@ class ProductPolicy extends ModelPolicy
      */
     public function adjust(User $user, $model, $parent = null)
     {
-        $allow = $user->hasRole(['admin']);
+        $allow = !$user->hasRole(['staff']);
         if ($parent) $allow = $allow && $user->can('adjust', $parent);
         return $allow;
     }

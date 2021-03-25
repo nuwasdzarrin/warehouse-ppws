@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\TransactionStatus;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -65,8 +66,10 @@ class TransactionStatusController extends Controller
      */
     public function index()
     {
-        $transaction_statuses = TransactionStatus::filter()
-            ->paginate()->appends(request()->query());
+        $user = auth()->user();
+        $transaction_statuses = TransactionStatus::query()->when($user->hasRole(['staff']), function (Builder $query) {
+            return $query->whereNotIn('name', ['Penyesuaian']);
+        })->filter()->paginate()->appends(request()->query());
 //        $this->authorize('index', 'App\TransactionStatus');
 
         return Resource::collection($transaction_statuses);
