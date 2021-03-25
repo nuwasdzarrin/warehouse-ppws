@@ -77,7 +77,7 @@
     </li>
       @if(auth()->user()->hasRole('superadmin'))
       <li class="{{request()->is('roles*')||request()->is('institutions*')||request()->is('transaction_statuses*')? 'active': ''}}">
-          <a href="#"><i class="fa fa-user-secret"></i> <span class="nav-label">Admin</span><span class="fa arrow"></span></a>
+          <a href="#"><i class="fa fa-user-secret"></i> <span class="nav-label">Super Admin</span><span class="fa arrow"></span></a>
           <ul class="nav nav-second-level {{request()->is('roles*')||request()->is('institutions*')||request()->is('transaction_statuses*')? 'mm-show': ''}}">
               <li class="{{request()->is('roles*')? 'active': ''}}">
                   <a href="{{ route('roles.index') }}"><i class="fa fa-list-alt"></i> <span class="nav-label">Role</span></a>

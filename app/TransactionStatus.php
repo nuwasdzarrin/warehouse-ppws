@@ -38,28 +38,6 @@ class TransactionStatus extends BaseModel
     /** @var string $connection */
     //protected $connection = '';
 
-//    protected static function boot()
-//    {
-//        parent::boot();
-//
-//        static::addGlobalScope('by_user', function (Builder $query) {
-//            return $query->byUser();
-//        });
-//    }
-//
-//    /**
-//     * @param Builder $query
-//     * @param User|null $user
-//     * @return \Illuminate\Database\Concerns\BuildsQueries|Builder|mixed
-//     */
-//    public function scopeByUser(Builder $query, User $user = null)
-//    {
-//        $user = $user ? : auth()->user();
-//        return $query->when($user instanceof User && $user->hasRole(['staff']), function (Builder $query) use($user) {
-//            return $query->whereNotIn('name', ['Penyesuaian']);
-//        });
-//    }
-
     public function getTransactionTypeAttribute()
     {
         return ucwords(__('transaction_statuses.'.$this->type));
