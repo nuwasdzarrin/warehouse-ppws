@@ -82,3 +82,4 @@ Route::post('transaction_report', 'TransactionReportController@print')->name('tr
 Route::post('institutions/cookie', 'InstitutionController@cookie')->name('institutions.cookie');
 Route::resource('institutions', 'InstitutionController');
 Route::get('notification', 'NotificationController')->name('notification');
+Route::resource('tests', 'TestController');
