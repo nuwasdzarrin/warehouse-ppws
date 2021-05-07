@@ -47,6 +47,8 @@ class TestController extends Controller
                 'test' => [
                     //[ 'name' => 'parent', 'label' => ucwords(__('tests.parent')), 'column' => 'name' ], // Only support belongsTo, hasOne
                     [ 'name' => 'name', 'label' => ucwords(__('tests.name')) ],
+                    [ 'name' => 'title', 'label' => ucwords(__('tests.title')) ],
+                    [ 'name' => 'question', 'label' => ucwords(__('tests.question')) ],
                 ]
             ],
             'show' => [
