@@ -468,10 +468,10 @@ class ProductCategoryController extends Controller
         else
             $response = response()->redirectToRoute('product_categories.index');
 
-        $product = $product_category->products;
-        if ($product)
+        $products = $product_category->products;
+        if ($products->count()) {
             return $response->with('status', 'Kategori '.$product_category->name.' masih berisi beberapa barang, silahkan hapus barang dikategori ini terlebih dahulu');
-
+        }
 
         $product_category->delete();
 
