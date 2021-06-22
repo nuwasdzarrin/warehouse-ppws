@@ -456,12 +456,20 @@ class InstitutionController extends Controller
     public function destroy(Institution $institution)
     {
         $this->authorize('delete', $institution);
-        $institution->delete();
 
         if (request()->filled('redirect') && starts_with(request()->redirect, request()->root()) && !Str::contains(request()->redirect, '/institutions/'.$institution->getKey()))
             $response = response()->redirectTo(request()->redirect);
         else
             $response = response()->redirectToRoute('institutions.index');
+
+        $product_category = $institution->product_category;
+        $products = $institution->products;
+        $user = $institution->user;
+        if ($product_category->count() || $products->count() || $user->count()) {
+            return $response->with('status', 'Kategori '.$institution->name.' masih berisi beberapa pengguna, kategori, maupun barang, silahkan hapus pengguna, kategori, maupun barang diinstitusi ini terlebih dahulu');
+        }
+
+        $institution->delete();
 
         return $response->with('status', __('Success'));
     }
