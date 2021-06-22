@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Institution;
 use App\Product;
 use Illuminate\Database\Eloquent\Builder;
 use Barryvdh\Snappy\Facades\SnappyPdf as PDF;
@@ -43,11 +44,15 @@ class StockReportController extends Controller
     {
         $institution_id = request()->cookie('institution_id');
 
+        $institution = Institution::query()->find($institution_id);
         $products = Product::query()->when(auth()->user()->hasRole(['superadmin']), function (Builder $query) use ($institution_id) {
             return $query->where($query->qualifyColumn('institution_id'), $institution_id);
         })->filter()->paginate()->appends(request()->query());
 
-        $pdf = PDF::loadView('prints.stock_report', [ 'products' => $products, 'chartImg' => request()->chartImg ])
+        $pdf = PDF::loadView('prints.stock_report', [
+            'products' => $products,
+            'chartImg' => request()->chartImg,
+            'institution' => $institution ])
             ->setPaper('a3')
             ->setOption('margin-bottom', 10)
             ->setOption('enable-javascript', true)

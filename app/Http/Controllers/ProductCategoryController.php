@@ -462,12 +462,18 @@ class ProductCategoryController extends Controller
     public function destroy(ProductCategory $product_category)
     {
         $this->authorize('delete', $product_category);
-        $product_category->delete();
 
         if (request()->filled('redirect') && starts_with(request()->redirect, request()->root()) && !Str::contains(request()->redirect, '/product_categories/'.$product_category->getKey()))
             $response = response()->redirectTo(request()->redirect);
         else
             $response = response()->redirectToRoute('product_categories.index');
+
+        $product = $product_category->products;
+        if ($product)
+            return $response->with('status', 'Kategori '.$product_category->name.' masih berisi beberapa barang, silahkan hapus barang dikategori ini terlebih dahulu');
+
+
+        $product_category->delete();
 
         return $response->with('status', __('Success'));
     }

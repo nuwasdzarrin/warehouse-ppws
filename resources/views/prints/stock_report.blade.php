@@ -780,7 +780,8 @@
             <div class="ponds-recap">
                 <h3 class="section-title">Laporan Stok Barang</h3>
                 <hr class="title-underline" align="left">
-                <span class="recap-note-title">Laporan stok barang {{ $now }}</span>
+                <span class="recap-note-title">Laporan stok barang {{ $now }}</span><br>
+                <span class="recap-note-title">Lembaga: {{$institution->name}}</span>
                 <div>
                     <img src="{{ $chartImg }}" alt="chart-image">
                 </div>

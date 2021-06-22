@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Institution;
 use App\Transaction;
 use Illuminate\Http\RedirectResponse;
 //use mikehaertl\wkhtmlto\Pdf;
@@ -45,11 +46,24 @@ class TransactionReportController extends Controller
     {
         $institution_id = request()->cookie('institution_id');
 
+        $institution = Institution::query()->find($institution_id);
         $transactions = Transaction::query()->when(auth()->user()->hasRole(['superadmin']), function (Builder $query) use ($institution_id) {
             return $query->where($query->qualifyColumn('institution_id'), $institution_id);
         })->filter()->paginate()->appends(request()->query());
 
-        return PDF::loadView('prints.transaction_report', [ 'transactions' => $transactions, 'chartImg' => request()->chartImg ])
+
+//        script for debugging
+        if (request()->exists('dev'))
+            return response()->view('prints.transaction_report', [
+                'transactions' => $transactions,
+                'chartImg' => request()->chartImg,
+                'institution' => $institution
+            ]);
+
+        return PDF::loadView('prints.transaction_report', [
+            'transactions' => $transactions,
+            'chartImg' => request()->chartImg,
+            'institution' => $institution ])
             ->setPaper('a3')
             ->setOption('margin-bottom', 10)
             ->setOption('margin-top', 11)
@@ -57,8 +71,5 @@ class TransactionReportController extends Controller
             ->setOption('javascript-delay', 5000)
             ->setOption('title', "Cetak Laporan Transaksi")
             ->inline("cetak-laporan-transaksi.pdf");
-
-//        script for debugging
-//        if (request()->exists('dev')) return response()->view('prints.transaction_report', [ 'transactions' => $transactions ]);
     }
 }

@@ -388,7 +388,8 @@
             <div class="ponds-recap">
                 <h3 class="section-title">Laporan Transaksi</h3>
                 <hr class="title-underline" align="left">
-                <span class="recap-note-title">Laporan Transaksi {{ $now }}</span>
+                <span class="recap-note-title">Laporan Transaksi {{ $now }}</span><br>
+                <span class="recap-note-title">Lembaga: {{$institution->name}}</span>
                 <div>
                     <img src="{{ $chartImg }}" alt="chart-img-transaction">
                 </div>

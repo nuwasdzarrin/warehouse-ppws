@@ -21,8 +21,9 @@
         <form style="display:inline"
               action="{{ route($resource_route.'.destroy', [ $model->getKey(), 'redirect' => request()->fullUrl() ]) }}"
               method="POST"
-              onsubmit="return confirm('{{ __('Are you sure you want to :do?', [ 'do' => ucwords(__('Delete')) ]) }}');">
+              onsubmit="return confirm('Menghapus {{$model->name}} juga akan menghapus semua transaksi yang pernah dilakukan dari barang ini. Anda Yakin?');">
             {{ csrf_field() }}
+{{--            onsubmit="return confirm('{{ __('Are you sure you want to :do?', [ 'do' => ucwords(__('Delete')) ]) }}');"--}}
             <button type="submit" class="btn btn-danger btn-sm btn-xs" name="_method"
                     value="DELETE" title="{{ __('Delete') }}"><i class="fa fa-trash"></i></button>
         </form>

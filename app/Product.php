@@ -39,6 +39,16 @@ class Product extends BaseModel
     /** @var string $connection */
     //protected $connection = '';
 
+    public function product_category()
+    {
+        return $this->belongsTo(ProductCategory::class);
+    }
+
+    public function transactions()
+    {
+        return$this->hasMany(Transaction::class);
+    }
+
     protected static function boot()
     {
         parent::boot();
@@ -48,6 +58,12 @@ class Product extends BaseModel
                 $query->select([
                     '*' => $query->qualifyColumn('*')
                 ]);
+        });
+
+        self::deleting(function($product) {
+            $product->transactions()->each(function($transaction) {
+                $transaction->delete();
+            });
         });
 
         static::addGlobalScope('by_user', function (Builder $query) {
@@ -66,11 +82,6 @@ class Product extends BaseModel
         return $query->when($user instanceof User && $user->hasRole(['admin','staff']), function (Builder $query) use($user) {
             return $query->where($query->qualifyColumn('institution_id'), $user->institution_id);
         });
-    }
-
-    public function product_category()
-    {
-        return $this->belongsTo(ProductCategory::class);
     }
 
     public function getAbbreviationNameAttribute()
