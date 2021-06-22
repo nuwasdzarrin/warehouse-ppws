@@ -466,7 +466,7 @@ class InstitutionController extends Controller
         $products = $institution->products;
         $user = $institution->user;
         if ($product_category->count() || $products->count() || $user->count()) {
-            return $response->with('status', 'Kategori '.$institution->name.' masih berisi beberapa pengguna, kategori, maupun barang, silahkan hapus pengguna, kategori, maupun barang diinstitusi ini terlebih dahulu');
+            return $response->with('status', 'Lembaga '.$institution->name.' masih berisi beberapa pengguna, kategori, maupun barang, silahkan hapus pengguna, kategori, maupun barang diinstitusi ini terlebih dahulu');
         }
 
         $institution->delete();
