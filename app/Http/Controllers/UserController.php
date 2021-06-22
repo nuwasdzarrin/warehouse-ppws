@@ -66,7 +66,7 @@ class UserController extends Controller
                     [ 'name' => 'email', 'label' => ucwords(__('users.email')) ],
                     [ 'name' => 'phone', 'label' => ucwords(__('users.phone')) ],
                     [ 'name' => 'address', 'label' => ucwords(__('users.address')) ],
-                    [ 'name' => 'avatar', 'label' => ucwords(__('users.avatar')) ],
+                    [ 'name' => 'avatar_html', 'label' => ucwords(__('users.avatar')) ],
                 ]
             ]
         ];

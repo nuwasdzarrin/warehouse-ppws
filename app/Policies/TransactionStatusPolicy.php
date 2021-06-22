@@ -49,7 +49,7 @@ class TransactionStatusPolicy extends ModelPolicy
      */
     public function delete(User $user, $model, $parent = null)
     {
-        $allow = $user->hasRole(['superadmin']);
+        $allow = false;
         if ($parent) $allow = $allow && $user->can('delete', $parent);
         return $allow;
     }

@@ -19,7 +19,7 @@ class RolePolicy extends ModelPolicy
      */
     public function create(User $user, $parent = null)
     {
-        $allow = $user->hasRole(['superadmin']);
+        $allow = false;
         if ($parent) $allow = $allow && $user->can('create', $parent);
         return $allow;
     }
@@ -34,7 +34,7 @@ class RolePolicy extends ModelPolicy
      */
     public function update(User $user, $model, $parent = null)
     {
-        $allow = $user->hasRole(['superadmin']);
+        $allow = false;
         if ($parent) $allow = $allow && $user->can('update', $parent);
         return $allow;
     }
@@ -49,7 +49,7 @@ class RolePolicy extends ModelPolicy
      */
     public function delete(User $user, $model, $parent = null)
     {
-        $allow = $user->hasRole(['superadmin']);
+        $allow = false;
         if ($parent) $allow = $allow && $user->can('delete', $parent);
         return $allow;
     }

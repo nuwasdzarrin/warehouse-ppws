@@ -6,7 +6,7 @@
 @endpush
 
 @if (auth()->check())
-@section('user-avatar', 'https://www.gravatar.com/avatar/' . md5(auth()->user()->email) . '?d=mm')
+@section('user-avatar', auth()->user()->avatar ? ('/storage/' . auth()->user()->avatar) : ('https://ui-avatars.com/api/?name='.auth()->user()->name))
 @section('user-name', auth()->user()->name)
 @section('user-text', ucwords(auth()->user()->role ? auth()->user()->role->display_name: 'staff'))
 @endif

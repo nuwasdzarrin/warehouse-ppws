@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\HtmlString;
 use Laravel\Passport\HasApiTokens;
 use Smartisan\Filters\Traits\Filterable;
 
@@ -104,5 +105,10 @@ class User extends Authenticatable
     public function institution()
     {
         return $this->belongsTo(Institution::class);
+    }
+
+    public function getAvatarHtmlAttribute()
+    {
+        return $this->avatar? new HtmlString("<img src='/storage/$this->avatar' alt='avatar-picture' style='width: 200px; height: auto;'>"): '';
     }
 }
