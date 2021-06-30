@@ -27,7 +27,7 @@
   @stack('head')
 </head>
 
-<body class="pace-done {{ config('inspinia.skin', '') }}">
+<body class="pace-done {{ config('inspinia.skin', '') }} fixed-sidebar">
   <div id="wrapper">
     @include('inspinia::layouts.sidebar.main')
     @include('inspinia::layouts.main-panel.main')

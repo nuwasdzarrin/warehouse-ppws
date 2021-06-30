@@ -44,6 +44,11 @@ class Product extends BaseModel
         return $this->belongsTo(ProductCategory::class);
     }
 
+    public function institution()
+    {
+        return $this->belongsTo(Institution::class);
+    }
+
     public function transactions()
     {
         return$this->hasMany(Transaction::class);
