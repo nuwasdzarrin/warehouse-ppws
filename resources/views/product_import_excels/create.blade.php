@@ -20,9 +20,11 @@
             <li>Dilarang keras meng-edit maupun meng-hapus baris pertama yang berisi judul, nama lembaga, tanggal, jam</li>
             <li>Dilarang keras meng-edit maupun meng-hapus baris kedua yang berisi header seperti ID, Name, Stock, Noted</li>
             <li>Jika Barang sudah memiliki ID Dilarang keras meng-edit maupun meng-hapus ID Barang</li>
-            <li>Penambahan Barang bisa dilakukan dengan menambahkan baris dibawah data yang telah ada dengan MEN-KOSONGKAN ID</li>
+            <li>Penambahan Barang bisa dilakukan dengan menambahkan baris dibawah data yang telah ada dengan <b>MEN-KOSONGKAN</b> ID</li>
             <li>Data barang dengan ID Kosong akan dianggap Penambahan data Barang</li>
             <li>Data barang dengan ID Terisi akan dianggap Update data Barang</li>
+            <li>Penambahan data dengan import excel akan mengabaikan kategori</li>
+            <li>Kategori dapat diubah dengan fitur edit barang</li>
         </ol>
     </div>
     @foreach ($fields[$model_variable] as $key => $field)
