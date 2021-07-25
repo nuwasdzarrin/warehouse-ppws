@@ -196,6 +196,11 @@ body.rtls.mini-navbar.fixed-sidebar #page-wrapper {
   margin: 0 0 0 0;
 }
 
+body.fixed-sidebar.mini-navbar #page-wrapper {
+    margin: 0 0 0 0;
+    width: 100%;
+}
+
 body.rtls.body-small.fixed-sidebar.mini-navbar #page-wrapper {
   margin: 0 $sidebar-width 0 0;
 }
