@@ -3,6 +3,7 @@
 namespace App\Exports;
 
 use App\Product;
+use Carbon\Carbon;
 use Maatwebsite\Excel\Concerns\Exportable;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\FromQuery;
@@ -16,6 +17,13 @@ class ProductsExport implements FromQuery, WithHeadings, WithMapping, WithColumn
 {
     use Exportable;
 
+    public $institution_name;
+
+    public function __construct($institution_name)
+    {
+        $this->institution_name = $institution_name;
+    }
+
     public function query()
     {
         return Product::query();
@@ -27,12 +35,20 @@ class ProductsExport implements FromQuery, WithHeadings, WithMapping, WithColumn
     public function headings(): array
     {
         return [
-            'ID',
-            ucwords('institution'),
-            ucwords('category'),
-            ucwords('name'),
-            ucwords('stock'),
-            ucwords('noted'),
+            [
+                'Master Data',
+                $this->institution_name,
+                Carbon::now()->format('Y-m-d'),
+                Carbon::now()->format('H:i')
+            ],
+            [
+                'ID',
+//                ucwords('institution'),
+//                ucwords('category'),
+                ucwords('name'),
+                ucwords('stock'),
+                ucwords('noted'),
+            ]
         ];
     }
 
@@ -43,8 +59,8 @@ class ProductsExport implements FromQuery, WithHeadings, WithMapping, WithColumn
     {
         return [
             $product->id,
-            $product->institution->name,
-            $product->product_category->name,
+//            $product->institution->name,
+//            $product->product_category->name,
             $product->name,
             $product->stock,
             $product->noted,
@@ -54,12 +70,10 @@ class ProductsExport implements FromQuery, WithHeadings, WithMapping, WithColumn
     public function columnWidths(): array
     {
         return [
-            'A' => 5,
-            'B' => 30,
-            'C' => 20,
-            'D' => 30,
-            'E' => 5,
-            'F' => 100,
+            'A' => 15,
+            'B' => 50,
+            'C' => 15,
+            'D' => 100,
         ];
     }
 }

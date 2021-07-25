@@ -83,5 +83,5 @@ Route::post('institutions/cookie', 'InstitutionController@cookie')->name('instit
 Route::resource('institutions', 'InstitutionController');
 Route::get('notification', 'NotificationController')->name('notification');
 Route::get('product_import_excel/export', 'ProductImportExcelController@export')->name('product_import_excel.export');
-Route::get('product_import_excel', 'ProductImportExcelController@create')->name('product_import_excel.create');
+Route::get('product_import_excel', 'ProductImportExcelController@create')->name('products.import');
 Route::post('product_import_excel', 'ProductImportExcelController@import')->name('product_import_excel.import');

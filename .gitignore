@@ -6,6 +6,7 @@ yarn-error.log
 /public/storage
 /public/hot
 /storage/*.key
+/storage/framework/laravel-excel
 .env
 database.sqlite
 Homestead.yaml

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Exports\ProductsExport;
 use App\Imports\ProductsImport;
+use App\Institution;
 use App\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\HtmlString;
@@ -87,7 +88,9 @@ class ProductImportExcelController extends Controller
     {
         $this->authorize('export', 'App\Product');
 
-        return Excel::download(new ProductsExport, 'products_'.now()->format('Y-m-d_H.i').'.xlsx');
+        $institution = Institution::byUser(auth()->user())->find(request()->cookie('institution_id')) ? : Institution::byUser(auth()->user())->first();
+
+        return Excel::download(new ProductsExport($institution->name), 'products_'.now()->format('Y-m-d_H.i').'.xlsx');
     }
 
     /**
@@ -103,8 +106,10 @@ class ProductImportExcelController extends Controller
         $this->authorize('import', 'App\Product');
         $request->validate(self::rules($request)['import']);
 
+        $institution_id = (request()->cookie('institution_id')) ? : Institution::byUser(auth()->user())->first()->id;
+
         try {
-            Excel::import(new ProductsImport, $request->file('file'));
+            Excel::import(new ProductsImport((int) $institution_id), $request->file('file'));
         } catch (ValidationException $exception) {
             return back()->withInput()->with('status', new HtmlString(
                 "<div style='margin-bottom: 5px'>{$exception->getMessage()}</div>".
